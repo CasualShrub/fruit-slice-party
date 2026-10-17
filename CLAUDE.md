@@ -18,6 +18,12 @@ The point is to make players keep track of what they need next, so the game isn'
 - A tap slices **every** fruit on the dotted line at that moment. When a wanted and an unwanted fruit cross together, the player can hold off and skip both rather than take a strike. Make sure fruits pass the line together often enough that this choice actually comes up.
 - Fruits that aren't in the queue keep spawning as distractors. Make sure the wanted fruits still show up often enough that the queue can be cleared.
 
+### Fruit roster
+Banana, strawberry, blueberry, watermelon, eggplant, kiwi, dragonfruit. (The tomato in the art reference is only a style example, not a playable fruit.)
+- Sizes can differ, but every fruit must be big enough to read and slice on a phone. Don't draw blueberries true to scale next to watermelons.
+- Long fruits (banana, eggplant) make rotation matter: the same tap gives a very different split depending on the angle.
+- Each fruit needs a simple, instantly recognizable queue symbol in the same hand-drawn style.
+
 ### Scoring
 Points depend on how far the split is from 50/50. Deviation = `abs(larger_side% - 50)`. A 52/48 split has a deviation of 2.
 
@@ -58,4 +64,4 @@ Points depend on how far the split is from 50/50. Deviation = `abs(larger_side% 
 - **In-app purchases:** to be decided later. Don't build them yet.
 
 ## Open decisions (ask before assuming)
-- The fruit roster, and how many fruit types can show up at once.
+- Whether all seven fruits appear from the start, or new ones unlock as the run speeds up.
