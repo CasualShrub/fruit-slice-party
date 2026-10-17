@@ -10,6 +10,17 @@ A simple mobile game by Shrub (indie dev). Release targets: **iOS App Store, Goo
 - The split is the ratio of the fruit's **area** on each side of the line at the moment of the tap. Fruits are rotated, so measure the actual shape, not its bounding box.
 - Keep controls one-touch: no swiping, no menus during play.
 
+### Order queue
+The point is to make players keep track of what they need next, so the game isn't just slicing everything on repeat.
+- The screen always shows **three fruit symbols**: the fruits the player is currently asked to slice (e.g. mango, banana, banana). They are generated randomly when the level loads.
+- Slicing a fruit that matches **any** of the symbols clears one matching symbol, awards points (scaled by how close the split is to 50/50), and **instantly** generates a new symbol to replace it, so there are always three.
+- Slicing a fruit that **isn't** in the queue costs points.
+- A tap slices **every** fruit on the dotted line at that moment. When a wanted and an unwanted fruit cross together, the player can hold off and skip both rather than take the penalty. Make sure fruits pass the line together often enough that this choice actually comes up.
+- Fruits that aren't in the queue keep spawning as distractors. Make sure the wanted fruits still show up often enough that the queue can be cleared.
+
+### Difficulty
+- Spawn rate and fall speed both **increase over time** during a run.
+
 ## Art direction
 - **Very, very simple.** Blob shapes and childlike MS Paint drawings: thick uneven outlines, flat colors, wobbly lines, no gradients or shading.
 - Reference: [docs/art-reference/tomato.png](docs/art-reference/tomato.png) is a hand-drawn tomato (thick red outline, green stem on a black background). Match this look.
@@ -32,8 +43,10 @@ A simple mobile game by Shrub (indie dev). Release targets: **iOS App Store, Goo
 
 ## Store notes
 - Avoid anything that differs per store unless it's isolated behind one platform layer (ads, IAP, leaderboards). Amazon builds use the Android export.
+- **Ads and leaderboards are planned.** Each store has a different service (Game Center on iOS, Play Games on Google Play, and Amazon has no current equivalent, so it may need a cross-platform backend), so put them behind one interface and keep gameplay code unaware of which store it's on.
+- **In-app purchases:** to be decided later. Don't build them yet.
 
 ## Open decisions (ask before assuming)
-- Scoring, lives, and game-over rules.
-- Whether fruits speed up or spawn faster over time.
-- Monetization (ads/IAP) and any leaderboards.
+- Exact point values: base reward, accuracy bonus curve, wrong-fruit penalty.
+- Game-over rule (lives, timer, score dropping below zero, missed wanted fruits?).
+- The fruit roster, and how many fruit types can show up at once.
