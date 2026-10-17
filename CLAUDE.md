@@ -13,10 +13,21 @@ A simple mobile game by Shrub (indie dev). Release targets: **iOS App Store, Goo
 ### Order queue
 The point is to make players keep track of what they need next, so the game isn't just slicing everything on repeat.
 - The screen always shows **three fruit symbols**: the fruits the player is currently asked to slice (e.g. mango, banana, banana). They are generated randomly when the level loads.
-- Slicing a fruit that matches **any** of the symbols clears one matching symbol, awards points (scaled by how close the split is to 50/50), and **instantly** generates a new symbol to replace it, so there are always three.
-- Slicing a fruit that **isn't** in the queue costs points.
-- A tap slices **every** fruit on the dotted line at that moment. When a wanted and an unwanted fruit cross together, the player can hold off and skip both rather than take the penalty. Make sure fruits pass the line together often enough that this choice actually comes up.
+- Slicing a fruit that matches **any** of the symbols clears one matching symbol, awards points (see Scoring), and **instantly** generates a new symbol to replace it, so there are always three.
+- Slicing a fruit that **isn't** in the queue gives a **strike**. **Three strikes end the run.** Wrong slices don't cost points.
+- A tap slices **every** fruit on the dotted line at that moment. When a wanted and an unwanted fruit cross together, the player can hold off and skip both rather than take a strike. Make sure fruits pass the line together often enough that this choice actually comes up.
 - Fruits that aren't in the queue keep spawning as distractors. Make sure the wanted fruits still show up often enough that the queue can be cleared.
+
+### Scoring
+Points depend on how far the split is from 50/50. Deviation = `abs(larger_side% - 50)`. A 52/48 split has a deviation of 2.
+
+| Deviation | Split range | Points |
+|---|---|---|
+| ≤ 0.5 | 50.5/49.5 or better | **150** (absolutely perfect) |
+| ≤ 2 | 52/48 or better | **100** (perfect) |
+| > 2 | worse than 52/48 | scales down linearly from 100 at a deviation of 2 to 0 at a deviation of 50 |
+- Any wanted fruit that gets sliced clears its symbol, even a bad split.
+- Keep the thresholds and the falloff as tunable values. The falloff curve is a placeholder until it's been playtested.
 
 ### Difficulty
 - Spawn rate and fall speed both **increase over time** during a run.
@@ -47,6 +58,4 @@ The point is to make players keep track of what they need next, so the game isn'
 - **In-app purchases:** to be decided later. Don't build them yet.
 
 ## Open decisions (ask before assuming)
-- Exact point values: base reward, accuracy bonus curve, wrong-fruit penalty.
-- Game-over rule (lives, timer, score dropping below zero, missed wanted fruits?).
 - The fruit roster, and how many fruit types can show up at once.
